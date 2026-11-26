@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  /* Near-neutral, a touch warm. Not cream. */
+  --color-bone:   #f4f4f2;
+  --color-card:   #ffffff;
+  --color-ink:    #16181c;
+  --color-ink2:   #4e535a;
+  --color-ink3:   #74797f;
+  --color-rule:   #d9d7d2;
+  --color-rule2:  #eae8e4;
+  --color-signal: #124d5a;
+  --color-wash:   #e8eff1;
+  --color-alert:  #a8452a;
+  --color-night:  #101214;
+
+  /* Lit equivalents for the call screen, where the green reads as black. */
+  --color-glow:   #6cc3d1;
+  --color-warn:   #d9a24e;
+
+  --font-sans: "Instrument Sans", ui-sans-serif, -apple-system, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Monospace is for values that have to line up in a column and stay still
+   while they change: times, dates, phone numbers, counts, the call timer.
+   Nothing else. */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "zero" 1;
+}
+
+/* Column heading in a table. Sentence case: the width of the column already
+   says it is a heading, so it does not need shouting too. */
+.col {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--color-ink3);
+}
+
+/* Quiet sublabel under a value. Sentence case: it is information, not a badge. */
+.sub {
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: var(--color-ink3);
+}
+
+/* A row the agent just touched holds a tint, then lets go. Slow enough to
+   notice on a screen recording, which is where it has to read. */
+@keyframes settle {
+  0%, 25% { background-color: var(--color-wash); }
+  100%    { background-color: transparent; }
+}
+.settle { animation: settle 3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
+}
+.rise { animation: rise 0.28s cubic-bezier(0.2, 0, 0, 1) both; }
+
+/* Ringing. The one looping animation left, because a phone that is ringing
+   should look like it is ringing. */
+@keyframes halo {
+  0%   { transform: scale(1);    opacity: 0.45; }
+  75%  { transform: scale(1.7);  opacity: 0; }
+  100% { transform: scale(1.7);  opacity: 0; }
+}
+.halo::after {
+  content: ""; position: absolute; inset: 0; border-radius: 9999px;
+  border: 1px solid currentColor; animation: halo 1.8s ease-out infinite;
+}
+
+@keyframes shimmer {
+  from { opacity: 0.45; }
+  to   { opacity: 0.85; }
+}
+.skeleton {
+  background: var(--color-rule2);
+  animation: shimmer 1s ease-in-out infinite alternate;
+}
+
+.board { scrollbar-width: thin; scrollbar-color: var(--color-rule) transparent; }
+.board::-webkit-scrollbar { height: 6px; width: 6px; }
+.board::-webkit-scrollbar-track { background: transparent; }
+.board::-webkit-scrollbar-thumb { background: var(--color-rule); border-radius: 99px; }
+
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-thumb { background: #cfccc6; border-radius: 99px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}

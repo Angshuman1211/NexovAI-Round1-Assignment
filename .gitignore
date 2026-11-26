@@ -1,0 +1,26 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Secrets: never commit real keys, only .env.example
+.env
+.env.local
+
+# Local database, regenerated on first run
+server/clinic.db
+
+# Node
+node_modules/
+web/dist/
+web/.vite/
+
+# OS
+.DS_Store
+
+# The assignment brief itself does not belong in the submitted repo
+SDE_Intern_Round1_Assignment.pdf
+
+# Brand source lockup. The app ships the derived web/public/logo.png.
+image.png
