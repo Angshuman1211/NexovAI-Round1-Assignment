@@ -1,4 +1,4 @@
-# Lakeview Clinic — Voice Appointment Agent
+# Lakeview Clinic: Voice Appointment Agent
 
 A voice agent that books and cancels doctor appointments over a live call, with
 a dashboard that updates as the conversation happens. Built with Pipecat,
